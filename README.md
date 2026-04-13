@@ -92,3 +92,4 @@ No build step needed — just open `index.html` in a browser.
 ## License
 
 MIT
+

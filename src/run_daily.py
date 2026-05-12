@@ -87,6 +87,8 @@ CFG = {
 
     "skip_email": env("SKIP_EMAIL", required=False, default="") == "1",
 
+    "slack_webhook": env("SLACK_WEBHOOK_URL", required=False, default=""),
+
 }
 
 # --------------------------------------------------------------------------
@@ -470,7 +472,6 @@ def write_json(mtd, yesterday, as_of):
     print(f"Wrote {out_path}")
 
 def render_and_send_email(mtd, yesterday, as_of):
-
     tpl_env = Environment(
 
         loader=FileSystemLoader(os.path.join(ROOT, "templates")),
@@ -518,6 +519,51 @@ def render_and_send_email(mtd, yesterday, as_of):
         s.sendmail(CFG["gmail_addr"], [CFG["gmail_addr"]], msg.as_string())
 
     print("Email sent.")
+
+# --------------------------------------------------------------------------
+
+# Slack
+
+# --------------------------------------------------------------------------
+
+def send_slack_report(mtd, as_of):
+    """Post a training score summary to Slack via Incoming Webhook."""
+    webhook = CFG.get("slack_webhook", "")
+    if not webhook:
+        print("No SLACK_WEBHOOK_URL set, skipping Slack notification.")
+        return
+
+    lines = [
+        f":bar_chart: *Training Score Report — {as_of.strftime('%b %-d, %Y %I:%M %p %Z')}*",
+        "",
+    ]
+
+    for bot, data in sorted(mtd.items()):
+        total = data.get("total", 0)
+        passed = data.get("passed", 0)
+        rate = data.get("pass_rate", 0.0)
+        emoji = ":white_check_mark:" if rate >= 80 else ":warning:" if rate >= 50 else ":x:"
+        lines.append(f"{emoji} *{bot}* — {passed}/{total} passed ({rate:.1f}%)")
+
+        # Top 3 leaderboard
+        board = data.get("leaderboard", [])[:3]
+        if board:
+            lines.append("  _Top trainees:_")
+            for rank, entry in enumerate(board, 1):
+                medal = [":first_place_medal:", ":second_place_medal:", ":third_place_medal:"][rank - 1]
+                lines.append(
+                    f"  {medal} {entry['name']} — {entry['passes']}/{entry['attempts']} "
+                    f"({entry['rate']*100:.0f}%)"
+                )
+        lines.append("")
+
+    payload = {"text": "\n".join(lines)}
+    try:
+        resp = requests.post(webhook, json=payload, timeout=10)
+        resp.raise_for_status()
+        print("Slack notification sent.")
+    except Exception as e:
+        print(f"Slack notification failed: {e}")
 
 # --------------------------------------------------------------------------
 
@@ -588,6 +634,8 @@ def main():
     write_json(mtd, yesterday, now_local)
 
     render_and_send_email(mtd, yesterday, now_local)
+
+    send_slack_report(mtd, now_local)
 
 if __name__ == "__main__":
 

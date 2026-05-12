@@ -1,0 +1,34 @@
+name: Daily Report
+
+on:
+  schedule:
+    # Runs every day at 8:00 AM UTC
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  daily-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run daily report
+        env:
+          BLAND_API_KEY: ${{ secrets.BLAND_API_KEY }}
+          GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          QUILL_PATHWAY_ID: ${{ secrets.QUILL_PATHWAY_ID }}
+          WALTER_PATHWAY_ID: ${{ secrets.WALTER_PATHWAY_ID }}
+          WILLOW_PATHWAY_ID: ${{ secrets.WILLOW_PATHWAY_ID }}
+          TIMEZONE: ${{ secrets.TIMEZONE }}
+        run: python src/run_daily.py

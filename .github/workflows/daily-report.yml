@@ -33,4 +33,5 @@ jobs:
           WALTER_PATHWAY_ID: ${{ secrets.WALTER_PATHWAY_ID }}
           WILLOW_PATHWAY_ID: ${{ secrets.WILLOW_PATHWAY_ID }}
           TIMEZONE: ${{ secrets.TIMEZONE }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: python src/run_daily.py

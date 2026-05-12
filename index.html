@@ -3,92 +3,302 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QWW-OPS Dashboard</title>
+  <title>QWW-OPS Dashboard — April 2026</title>
   <style>
-    :root { --bg:#0d1117;--surface:#161b22;--border:#30363d;--accent:#58a6ff;--green:#3fb950;--red:#f85149;--yellow:#d29922;--text:#c9d1d9;--muted:#8b949e; }
+    :root {
+      --bg:#0d1117;--surface:#161b22;--border:#30363d;--accent:#58a6ff;
+      --green:#3fb950;--red:#f85149;--yellow:#d29922;--purple:#bc8cff;
+      --orange:#f0883e;--text:#c9d1d9;--muted:#8b949e;
+    }
     *{box-sizing:border-box;margin:0;padding:0}
     body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;min-height:100vh}
     header{background:var(--surface);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;justify-content:space-between}
     header h1{font-size:1.25rem;font-weight:700;color:var(--accent);letter-spacing:.05em}
     .ts{font-size:.75rem;color:var(--muted)}
-    .container{max-width:1200px;margin:0 auto;padding:2rem}
-    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-bottom:2rem}
+    .period-badge{background:rgba(88,166,255,.15);color:var(--accent);border:1px solid rgba(88,166,255,.3);padding:.2rem .7rem;border-radius:20px;font-size:.75rem;font-weight:600}
+    .container{max-width:1300px;margin:0 auto;padding:2rem}
+    .pathway-header{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+    .pathway-icon{font-size:1.4rem}
+    .pathway-title{font-size:1.1rem;font-weight:700;color:var(--text)}
+    .pathway-subtitle{font-size:.75rem;color:var(--muted);margin-left:auto}
+    .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin-bottom:1.5rem}
     .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem}
-    .stat-card .label{font-size:.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.5rem}
-    .stat-card .value{font-size:2rem;font-weight:700}
-    .stat-card .delta{font-size:.8rem;margin-top:.25rem}
-    .green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.blue{color:var(--accent)}
-    .section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.5rem;margin-bottom:1.5rem}
-    .section h2{font-size:.9rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:1rem}
-    table{width:100%;border-collapse:collapse;font-size:.875rem}
-    th{text-align:left;padding:.5rem .75rem;border-bottom:1px solid var(--border);color:var(--muted);font-weight:500;font-size:.75rem;text-transform:uppercase}
-    td{padding:.65rem .75rem;border-bottom:1px solid var(--border)}
+    .stat-card .label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.4rem}
+    .stat-card .value{font-size:1.8rem;font-weight:700}
+    .stat-card .sub{font-size:.75rem;margin-top:.2rem;color:var(--muted)}
+    .green{color:var(--green)}.red{color:var(--red)}.yellow{color:var(--yellow)}.blue{color:var(--accent)}.purple{color:var(--purple)}.orange{color:var(--orange)}
+    .pathway-block{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.75rem;margin-bottom:2rem}
+    .section{margin-bottom:1.5rem}
+    .section h3{font-size:.8rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:.75rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+    table{width:100%;border-collapse:collapse;font-size:.85rem}
+    th{text-align:left;padding:.45rem .7rem;border-bottom:1px solid var(--border);color:var(--muted);font-weight:500;font-size:.72rem;text-transform:uppercase}
+    td{padding:.55rem .7rem;border-bottom:1px solid var(--border)}
     tr:last-child td{border-bottom:none}
     .badge{display:inline-block;padding:.15rem .55rem;border-radius:20px;font-size:.7rem;font-weight:600}
     .badge-green{background:rgba(63,185,80,.15);color:var(--green)}
     .badge-red{background:rgba(248,81,73,.15);color:var(--red)}
     .badge-yellow{background:rgba(210,153,34,.15);color:var(--yellow)}
     .badge-blue{background:rgba(88,166,255,.15);color:var(--accent)}
-    .progress-bar{background:var(--border);border-radius:4px;height:6px;overflow:hidden}
-    .progress-fill{height:100%;border-radius:4px}
+    .badge-purple{background:rgba(188,140,255,.15);color:var(--purple)}
+    .badge-orange{background:rgba(240,136,62,.15);color:var(--orange)}
+    .bar-wrap{background:var(--border);border-radius:4px;height:8px;overflow:hidden;min-width:80px}
+    .bar-fill{height:100%;border-radius:4px;transition:width .3s}
     .two-col{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-    @media(max-width:700px){.two-col{grid-template-columns:1fr}}
+    .three-col{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem}
+    @media(max-width:900px){.two-col,.three-col{grid-template-columns:1fr}}
+    .flag-box{background:rgba(248,81,73,.07);border:1px solid rgba(248,81,73,.25);border-radius:8px;padding:1.25rem;margin-top:1rem}
+    .flag-box h3{color:var(--red);font-size:.85rem;font-weight:700;margin-bottom:.75rem;text-transform:uppercase;letter-spacing:.06em}
+    .flag-item{display:flex;gap:.6rem;margin-bottom:.6rem;font-size:.85rem;line-height:1.4}
+    .flag-item:last-child{margin-bottom:0}
+    .flag-dot{color:var(--red);font-size:1rem;flex-shrink:0;margin-top:.05rem}
+    .dropout-bar-row{display:flex;align-items:center;gap:.75rem;margin-bottom:.6rem;font-size:.82rem}
+    .dropout-bar-label{width:110px;text-align:right;color:var(--muted);flex-shrink:0}
+    .dropout-bar-count{width:36px;text-align:right;flex-shrink:0;font-weight:600}
+    .dropout-bar-pct{width:44px;text-align:right;color:var(--muted);flex-shrink:0;font-size:.75rem}
+    .divider{border:none;border-top:1px solid var(--border);margin:2rem 0}
     footer{text-align:center;padding:2rem;color:var(--muted);font-size:.75rem}
     a{color:var(--accent)}
+    .highlight-row{background:rgba(248,81,73,.05)}
+    .note{font-size:.75rem;color:var(--muted);margin-top:.6rem;font-style:italic}
   </style>
 </head>
 <body>
 <header>
   <h1>&#9670; QWW-OPS</h1>
-  <span class="ts" id="ts">Loading...</span>
+  <div style="display:flex;align-items:center;gap:1rem">
+    <span class="period-badge">April 2026</span>
+    <span class="ts" id="ts">Loading...</span>
+  </div>
 </header>
+
 <div class="container">
-  <div class="stats-grid">
-    <div class="stat-card"><div class="label">Uptime</div><div class="value green">99.8%</div><div class="delta green">&#9650; 0.2% vs last week</div></div>
-    <div class="stat-card"><div class="label">Active Services</div><div class="value blue">12 / 13</div><div class="delta yellow">1 degraded</div></div>
-    <div class="stat-card"><div class="label">Incidents (24h)</div><div class="value yellow">2</div><div class="delta green">&#9660; 3 vs yesterday</div></div>
-    <div class="stat-card"><div class="label">Avg Response Time</div><div class="value blue">142 ms</div><div class="delta green">&#9660; 18ms improvement</div></div>
-  </div>
-  <div class="section">
-    <h2>Service Status</h2>
-    <table>
-      <thead><tr><th>Service</th><th>Region</th><th>Status</th><th>Latency</th><th>Uptime 7d</th></tr></thead>
-      <tbody>
-        <tr><td>API Gateway</td><td>us-east-1</td><td><span class="badge badge-green">Healthy</span></td><td>38 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#3fb950"></div></div></td></tr>
-        <tr><td>Auth Service</td><td>us-east-1</td><td><span class="badge badge-green">Healthy</span></td><td>55 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:99%;background:#3fb950"></div></div></td></tr>
-        <tr><td>Data Pipeline</td><td>us-west-2</td><td><span class="badge badge-yellow">Degraded</span></td><td>410 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:94%;background:#d29922"></div></div></td></tr>
-        <tr><td>Notification Svc</td><td>eu-west-1</td><td><span class="badge badge-green">Healthy</span></td><td>72 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:99%;background:#3fb950"></div></div></td></tr>
-        <tr><td>Storage Layer</td><td>us-east-1</td><td><span class="badge badge-green">Healthy</span></td><td>12 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:100%;background:#3fb950"></div></div></td></tr>
-        <tr><td>Search Index</td><td>us-west-2</td><td><span class="badge badge-green">Healthy</span></td><td>88 ms</td><td><div class="progress-bar"><div class="progress-fill" style="width:99%;background:#3fb950"></div></div></td></tr>
-      </tbody>
-    </table>
-  </div>
-  <div class="two-col">
+
+  <!-- ======= QUILL ======= -->
+  <div class="pathway-block">
+    <div class="pathway-header">
+      <span class="pathway-icon">🤖</span>
+      <span class="pathway-title">Quill — Medicare Knowledge Quiz</span>
+      <span class="pathway-subtitle">April 2026 · Production</span>
+    </div>
+
+    <!-- KPI strip -->
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Total Calls</div><div class="value blue">111</div><div class="sub">Production</div></div>
+      <div class="stat-card"><div class="label">Passed</div><div class="value green">22</div><div class="sub">Successful Completions</div></div>
+      <div class="stat-card"><div class="label">Failed / Dropped</div><div class="value red">89</div><div class="sub">Did not pass</div></div>
+      <div class="stat-card"><div class="label">Pass Rate</div><div class="value yellow">19.8%</div><div class="sub">22 of 111</div></div>
+      <div class="stat-card"><div class="label">Unique Callers</div><div class="value blue">30</div><div class="sub">&nbsp;</div></div>
+      <div class="stat-card"><div class="label">Unique Passers</div><div class="value green">13</div><div class="sub">of 30 unique callers</div></div>
+    </div>
+
+    <div class="two-col">
+      <!-- Pass by Day -->
+      <div class="section">
+        <h3>Pass Rate by Day</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Passes</th></tr></thead>
+          <tbody>
+            <tr><td>Apr 6</td><td>0</td></tr>
+            <tr><td>Apr 7</td><td class="green" style="font-weight:600">3</td></tr>
+            <tr><td>Apr 8</td><td>1</td></tr>
+            <tr class="highlight-row"><td>Apr 9</td><td class="green" style="font-weight:700">10</td></tr>
+            <tr><td>Apr 10</td><td>1</td></tr>
+            <tr><td>Apr 11</td><td>3</td></tr>
+            <tr><td>Apr 12</td><td>1</td></tr>
+            <tr><td>Apr 13</td><td class="green" style="font-weight:600">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Dropout Analysis -->
+      <div class="section">
+        <h3>Dropout Analysis — 89 Failing Calls</h3>
+        <div style="padding:.5rem 0">
+          <div class="dropout-bar-row">
+            <span class="dropout-bar-label">Q0 (never started)</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:1.1%;background:var(--muted)"></div></div>
+            <span class="dropout-bar-count">1</span>
+            <span class="dropout-bar-pct">1.1%</span>
+          </div>
+          <div class="dropout-bar-row">
+            <span class="dropout-bar-label">After Q1</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:15.7%;background:var(--yellow)"></div></div>
+            <span class="dropout-bar-count">14</span>
+            <span class="dropout-bar-pct">15.7%</span>
+          </div>
+          <div class="dropout-bar-row" style="font-weight:600">
+            <span class="dropout-bar-label" style="color:var(--red)">After Q2 ⚠️</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:59.6%;background:var(--red)"></div></div>
+            <span class="dropout-bar-count red">53</span>
+            <span class="dropout-bar-pct red">59.6%</span>
+          </div>
+          <div class="dropout-bar-row">
+            <span class="dropout-bar-label">After Q3</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:10.1%;background:var(--yellow)"></div></div>
+            <span class="dropout-bar-count">9</span>
+            <span class="dropout-bar-pct">10.1%</span>
+          </div>
+          <div class="dropout-bar-row">
+            <span class="dropout-bar-label">After Q4–Q9</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:12.4%;background:var(--muted)"></div></div>
+            <span class="dropout-bar-count">11</span>
+            <span class="dropout-bar-pct">12.4%</span>
+          </div>
+          <div class="dropout-bar-row">
+            <span class="dropout-bar-label">After Q18</span>
+            <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:1.1%;background:var(--muted)"></div></div>
+            <span class="dropout-bar-count">1</span>
+            <span class="dropout-bar-pct">1.1%</span>
+          </div>
+        </div>
+        <p class="note">⚠️ Q2 is the critical drop point — 53 of 89 failures (60%) quit here.</p>
+      </div>
+    </div>
+
+    <!-- Individual Caller Pass Rates -->
     <div class="section">
-      <h2>Recent Incidents</h2>
+      <h3>Individual Caller Pass Rates (2+ Attempts)</h3>
       <table>
-        <thead><tr><th>ID</th><th>Description</th><th>Severity</th><th>Status</th></tr></thead>
+        <thead>
+          <tr><th>Caller</th><th>Passed</th><th>Attempts</th><th>Rate</th><th>Pass Rate Bar</th><th>Status</th></tr>
+        </thead>
         <tbody>
-          <tr><td>#1041</td><td>Data Pipeline latency spike</td><td><span class="badge badge-yellow">Medium</span></td><td><span class="badge badge-yellow">Investigating</span></td></tr>
-          <tr><td>#1040</td><td>Auth token refresh timeout</td><td><span class="badge badge-red">High</span></td><td><span class="badge badge-green">Resolved</span></td></tr>
-          <tr><td>#1039</td><td>Storage read throttling</td><td><span class="badge badge-blue">Low</span></td><td><span class="badge badge-green">Resolved</span></td></tr>
+          <tr><td>Leah Hopping</td><td class="green">3</td><td>4</td><td>75.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:75%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
+          <tr><td>Robin A. Cunningham</td><td class="green">2</td><td>3</td><td>66.7%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:66.7%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
+          <tr><td>Mitchell Davis</td><td class="green">4</td><td>9</td><td>44.4%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:44.4%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td>Dylene Lowe</td><td class="yellow">2</td><td>4</td><td>50.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:50%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td>(917) 832-3356</td><td class="yellow">2</td><td>5</td><td>40.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:40%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td>Edward Ebony</td><td>1</td><td>3</td><td>33.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:33.3%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">Low</span></td></tr>
+          <tr><td>Nick Ludovico</td><td>1</td><td>4</td><td>25.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:25%;background:var(--orange)"></div></div></td><td><span class="badge badge-orange">Low</span></td></tr>
+          <tr><td>Alban Bucci</td><td>1</td><td>8</td><td>12.5%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.5%;background:var(--red)"></div></div></td><td><span class="badge badge-red">At Risk</span></td></tr>
+          <tr><td>Avery Miller</td><td class="red">0</td><td>6</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td>Saya Taylor</td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td>Jean Marc Simeon</td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td>Tracy Nayman</td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr class="highlight-row"><td><strong>Anisha Degrave</strong></td><td class="red">1</td><td><strong style="color:var(--red)">30</strong></td><td>3.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.3%;background:var(--red)"></div></div></td><td><span class="badge badge-red">⚠️ Urgent</span></td></tr>
+        </tbody>
+      </table>
+      <p class="note">⚠️ Anisha Degrave: 30 attempts, 1 pass (3.3%) — coaching or direct outreach recommended.</p>
+    </div>
+
+    <!-- Passing Calls Log -->
+    <div class="section">
+      <h3>Passing Calls Log (22 Total)</h3>
+      <table>
+        <thead><tr><th>#</th><th>Date</th><th>#</th><th>Date</th><th>#</th><th>Date</th><th>#</th><th>Date</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>Apr 7</td><td>7</td><td>Apr 9</td><td>13–14</td><td>Apr 9</td><td>19</td><td>Apr 12</td></tr>
+          <tr><td>2</td><td>Apr 7</td><td>8–10</td><td>Apr 9</td><td>15</td><td>Apr 10</td><td>20</td><td>Apr 13</td></tr>
+          <tr><td>3</td><td>Apr 7</td><td>11–12</td><td>Apr 9</td><td>16</td><td>Apr 11</td><td>21</td><td>Apr 13</td></tr>
+          <tr><td>4</td><td>Apr 8</td><td>&nbsp;</td><td>&nbsp;</td><td>17–18</td><td>Apr 11</td><td>22</td><td>Apr 13</td></tr>
+          <tr><td>5–6</td><td>Apr 9</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody>
       </table>
     </div>
-    <div class="section">
-      <h2>Recent Deployments</h2>
-      <table>
-        <thead><tr><th>Service</th><th>Version</th><th>By</th><th>Status</th></tr></thead>
-        <tbody>
-          <tr><td>API Gateway</td><td>v3.12.1</td><td>ci-bot</td><td><span class="badge badge-green">Success</span></td></tr>
-          <tr><td>Auth Service</td><td>v2.8.0</td><td>ci-bot</td><td><span class="badge badge-green">Success</span></td></tr>
-          <tr><td>Search Index</td><td>v1.4.3</td><td>ci-bot</td><td><span class="badge badge-yellow">Pending</span></td></tr>
-        </tbody>
-      </table>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ======= WALTER ======= -->
+  <div class="pathway-block">
+    <div class="pathway-header">
+      <span class="pathway-icon">👨</span>
+      <span class="pathway-title">Walter — Male Healthcare Customer</span>
+      <span class="pathway-subtitle">All-Time · Production</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Total Calls</div><div class="value blue">31</div><div class="sub">All-Time Production</div></div>
+      <div class="stat-card"><div class="label">Successful Enrollment</div><div class="value green">1</div><div class="sub">3.2% of calls</div></div>
+      <div class="stat-card"><div class="label">Transferred to Agent</div><div class="value yellow">26</div><div class="sub">83.9% of calls</div></div>
+      <div class="stat-card"><div class="label">Frustrated Termination</div><div class="value red">4</div><div class="sub">12.9% of calls</div></div>
+      <div class="stat-card"><div class="label">April 2026 Calls</div><div class="value blue">1</div><div class="sub">Apr 13 — transferred to agent</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3>Outcome Breakdown</h3>
+        <table>
+          <thead><tr><th>Outcome</th><th>Count</th><th>Rate</th><th>Bar</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-green">✅ Enrollment</span></td><td class="green">1</td><td>3.2%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.2%;background:var(--green)"></div></div></td></tr>
+            <tr><td><span class="badge badge-yellow">➡️ Agent Transfer</span></td><td class="yellow">26</td><td>83.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:83.9%;background:var(--yellow)"></div></div></td></tr>
+            <tr><td><span class="badge badge-red">😤 Frustrated Exit</span></td><td class="red">4</td><td>12.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.9%;background:var(--red)"></div></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="section">
+        <h3>Notable Events</h3>
+        <table>
+          <thead><tr><th>Date</th><th>Event</th></tr></thead>
+          <tbody>
+            <tr><td style="white-space:nowrap">Jan 5, 2026</td><td>✅ Only successful self-service enrollment — Medicare Advantage / UnitedHealthcare plan</td></tr>
+            <tr><td style="white-space:nowrap">Apr 13, 2026</td><td>April's single call — transferred to agent</td></tr>
+          </tbody>
+        </table>
+        <p class="note">Walter is primarily routing callers to live agents rather than completing self-service enrollments.</p>
+      </div>
     </div>
   </div>
+
+  <hr class="divider" />
+
+  <!-- ======= WILLOW ======= -->
+  <div class="pathway-block">
+    <div class="pathway-header">
+      <span class="pathway-icon">👩</span>
+      <span class="pathway-title">Willow — Female Healthcare Customer</span>
+      <span class="pathway-subtitle">All-Time · Production</span>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Total Calls</div><div class="value blue">11</div><div class="sub">All-Time Production</div></div>
+      <div class="stat-card"><div class="label">Successful Enrollment</div><div class="value red">0</div><div class="sub">0% of calls</div></div>
+      <div class="stat-card"><div class="label">Transferred to Agent</div><div class="value yellow">11</div><div class="sub">100% of calls</div></div>
+      <div class="stat-card"><div class="label">April 2026 Calls</div><div class="value blue">1</div><div class="sub">Apr 13 — transferred to agent</div></div>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3>Outcome Breakdown</h3>
+        <table>
+          <thead><tr><th>Outcome</th><th>Count</th><th>Rate</th><th>Bar</th></tr></thead>
+          <tbody>
+            <tr><td><span class="badge badge-green">✅ Enrollment</span></td><td class="red">0</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--green)"></div></div></td></tr>
+            <tr><td><span class="badge badge-yellow">➡️ Agent Transfer</span></td><td class="yellow">11</td><td>100%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--yellow)"></div></div></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="section">
+        <h3>Assessment</h3>
+        <p style="font-size:.875rem;line-height:1.6;color:var(--text)">
+          All 11 production calls across all time have transferred to a live agent. 
+          Willow is functioning purely as a <strong>triage / routing bot</strong> — no self-service enrollments have been completed yet.
+        </p>
+        <p class="note" style="margin-top:.75rem">Apr 13, 2026 — Only April call, transferred to agent.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <!-- ======= KEY FLAGS ======= -->
+  <div class="flag-box">
+    <h3>⚠️ Key Flags &amp; Action Items</h3>
+    <div class="flag-item"><span class="flag-dot">▸</span><span><strong>Q2 Dropout (Quill):</strong> 53 of 89 failing callers (59.6%) quit after the 2nd question — this is the single biggest failure point. Investigate Q2 difficulty, clarity, or UX friction immediately.</span></div>
+    <div class="flag-item"><span class="flag-dot">▸</span><span><strong>Anisha Degrave (Quill):</strong> 30 attempts with only 1 pass (3.3%) in April. Recommend direct coaching outreach or a structured review session.</span></div>
+    <div class="flag-item"><span class="flag-dot">▸</span><span><strong>Walter Self-Service Gap:</strong> Only 1 enrollment ever (3.2%) — the pathway is functionally a live-agent transfer bot. Evaluate if self-service is the right goal or formalize triage role.</span></div>
+    <div class="flag-item"><span class="flag-dot">▸</span><span><strong>Willow Self-Service Gap:</strong> Zero enrollments across 11 all-time calls (100% agent transfer). Pathway needs self-service capability development or explicit repositioning as triage.</span></div>
+    <div class="flag-item"><span class="flag-dot">▸</span><span><strong>Low April Volume (Walter &amp; Willow):</strong> 1 call each in April 2026 — insufficient to draw April-specific conclusions. Monitor for volume pickup in May.</span></div>
+  </div>
+
 </div>
-<footer>QWW-OPS Dashboard &mdash; Auto-refreshes via GitHub Actions &mdash; <a href="https://github.com/kanisha423-coder/qww-ops">View Source</a></footer>
-<script>document.getElementById('ts').textContent='Last updated: '+new Date().toUTCString();</script>
+
+<footer>
+  QWW-OPS Dashboard &mdash; April 2026 Data &mdash;
+  <a href="https://github.com/kanisha423-coder/qww-ops">View Source</a>
+</footer>
+
+<script>document.getElementById('ts').textContent = 'Last updated: ' + new Date().toUTCString();</script>
 </body>
 </html>

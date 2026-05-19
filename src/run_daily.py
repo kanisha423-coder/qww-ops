@@ -46,6 +46,7 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 import requests
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -585,24 +586,23 @@ def main():
 
     print(f"Got {len(calls)} calls.")
 
-    enriched = []
+    def _fetch(c):
+              try:
+                            return (c, get_call_detail(c["call_id"]))
+              except Exception as e:
+                            print(f"  skip {c.get('call_id')}: {e}")
+                            return None
 
-    for i, c in enumerate(calls):
-
-        try:
-
-            d = get_call_detail(c["call_id"])
-
-            enriched.append((c, d))
-
-        except Exception as e:
-
-            print(f"  skip {c.get('call_id')}: {e}")
-
-        if (i + 1) % 50 == 0:
-
-            print(f"  hydrated {i+1}/{len(calls)}")
-
+      enriched = []
+    with ThreadPoolExecutor(max_workers=10) as pool:
+              futures = {pool.submit(_fetch, c): c for c in calls}
+              for i, future in enumerate(as_completed(futures), 1):
+                            result = future.result()
+                            if result is not None:
+                                              enriched.append(result)
+                                          if i % 50 == 0:
+                                                            print(f"  hydrated {i}/{len(calls)}")
+                                                print(f"  hydrated {len(calls)}/{len(calls)}")
     mtd = build_metrics(enriched)
 
     yesterday_start = (now_local - timedelta(days=1)).replace(

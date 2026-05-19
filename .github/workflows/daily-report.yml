@@ -25,6 +25,7 @@ jobs:
         run: pip install requests jinja2
 
       - name: Run score report
+            timeout-minutes: 30
         env:
           BLAND_API_KEY: ${{ secrets.BLAND_API_KEY }}
           GMAIL_ADDRESS: ${{ secrets.GMAIL_ADDRESS }}

@@ -1,5 +1,5 @@
 """
-Daily Bland dashboard runner. 
+Daily Bland dashboard runner.  
 
 Does two things in one pass:
 

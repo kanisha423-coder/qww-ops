@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QWW-OPS Dashboard â May 2026</title>
+  <title>QWW-OPS Dashboard — July 2026</title>
   <style>
     :root {
       --bg:#f2f2f2;--surface:#ffffff;--border:#e0dbd8;--accent:#e8461a;
@@ -63,13 +63,29 @@
           .magnemite-link{color:var(--accent);text-decoration:none;border-bottom:1px dashed rgba(232,70,26,.5);font-weight:500;transition:opacity .2s}
         .magnemite-link:hover{opacity:.7}
         .coming-soon-tag{display:inline-block;font-size:.58rem;font-weight:700;background:rgba(232,70,26,.1);color:var(--accent);border:1px solid rgba(232,70,26,.3);border-radius:8px;padding:.05rem .3rem;margin-left:.3rem;vertical-align:middle;letter-spacing:.04em;white-space:nowrap}
-        </style>
+        
+    .metric-section{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:1.25rem;margin-bottom:1rem}
+    .metric-section h4{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:.85rem}
+    .metric-row{display:flex;gap:.5rem;margin-bottom:.4rem;align-items:center;font-size:.82rem}
+    .metric-label{flex:1;color:var(--text)}
+    .metric-val{font-weight:700;min-width:52px;text-align:right;white-space:nowrap}
+    .pending{display:inline-block;font-size:.62rem;font-weight:700;background:rgba(243,156,18,.12);color:#b7791f;border:1px solid rgba(243,156,18,.3);border-radius:4px;padding:1px 5px;margin-left:3px}
+    .gap-card{background:rgba(142,68,173,.07);border:1px solid rgba(142,68,173,.2);border-radius:8px;padding:1rem;text-align:center;margin-bottom:.75rem}
+    .gap-card .gap-val{font-size:2.2rem;font-weight:700;color:var(--purple)}
+    .gap-card .gap-sub{font-size:.73rem;color:var(--muted);margin-top:.25rem}
+    .crossbot{background:var(--surface);border:2px solid var(--accent);border-radius:10px;padding:1.75rem;margin-bottom:2rem}
+    .crossbot h2{font-size:.95rem;font-weight:700;color:var(--accent);margin-bottom:1.25rem;text-transform:uppercase;letter-spacing:.06em}
+    .pipeline-bar{display:flex;align-items:center;gap:.6rem;font-size:.83rem;padding:.55rem 0;border-bottom:1px solid var(--border)}
+    .pipeline-bar:last-child{border-bottom:none}
+    .p-step{background:rgba(232,70,26,.09);border:1px solid rgba(232,70,26,.25);border-radius:4px;padding:2px 8px;font-weight:600;font-size:.77rem;color:var(--accent)}
+    .correlation-note{font-size:.8rem;color:var(--muted);border-left:3px solid var(--accent);padding-left:.75rem;margin-top:.75rem;font-style:italic}
+  </style>
 </head>
 <body>
 <header>
   <h1>&#9670; QWW-OPS</h1>
   <div style="display:flex;align-items:center;gap:1rem">
-    <span class="period-badge">May 2026</span>
+    <span class="period-badge">July 2026</span>
     <span class="ts" id="ts">Loading...</span>
   </div>
 </header>
@@ -79,9 +95,9 @@
   <!-- ======= QUILL ======= -->
   <div class="pathway-block">
     <div class="pathway-header">
-      <span class="pathway-icon">ð¤</span>
-      <span class="pathway-title">Quill â Medicare Knowledge Quiz</span>
-      <span class="pathway-subtitle">May 2026 Â· Production</span>
+      <span class="pathway-icon">Ã°ÂÂ¤Â</span>
+      <span class="pathway-title">Quill Ã¢ÂÂ Medicare Knowledge Quiz</span>
+      <span class="pathway-subtitle">July 2026ÃÂ· Production</span>
     </div>
 
     <!-- KPI strip -->
@@ -95,6 +111,53 @@
     </div>
 
     <div class="two-col">
+      
+    <!-- NEW METRICS: Quill July 2026 -->
+    <div class="three-col" style="margin-bottom:1.25rem">
+      <div class="metric-section">
+        <h4>First-Attempt Pass Rate <span class="pending">Jul</span></h4>
+        <div style="font-size:2rem;font-weight:700;color:var(--green);margin-bottom:.3rem">&#8212; %</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">% of agents scoring &#8805;90% on attempt 1. Primary signal that upstream training is working.</div>
+        <div class="metric-row"><span class="metric-label">May baseline (all-attempt)</span><span class="metric-val yellow">19.8%</span></div>
+        <div class="metric-row"><span class="metric-label">Unique caller pass rate (May)</span><span class="metric-val yellow">43.3%</span></div>
+        <div class="metric-row"><span class="metric-label">Target</span><span class="metric-val green">&#8805;40%</span></div>
+      </div>
+      <div class="metric-section">
+        <h4>Attempts-to-Pass Distribution <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Tail (4+ attempts) = your coaching list. Not just the mean.</div>
+        <div class="metric-row"><span class="metric-label">Pass on attempt 1</span><span class="metric-val green">&#8212;</span></div>
+        <div class="metric-row"><span class="metric-label">Pass on attempt 2</span><span class="metric-val yellow">&#8212;</span></div>
+        <div class="metric-row"><span class="metric-label">Pass on attempt 3</span><span class="metric-val orange">&#8212;</span></div>
+        <div class="metric-row"><span class="metric-label">4+ attempts (coaching tail)</span><span class="metric-val red">&#8212;</span></div>
+        <div class="metric-row" style="margin-top:.5rem;border-top:1px solid var(--border);padding-top:.5rem"><span class="metric-label">May est. median attempts</span><span class="metric-val">~4</span></div>
+      </div>
+      <div class="metric-section">
+        <h4>Question-Level Miss Rate <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Which of the 20 questions are failed most &#8212; points at content gaps, not just weak agents.</div>
+        <div class="metric-row"><span class="metric-label">Q2 dropout share (May)</span><span class="metric-val red">54.3%</span></div>
+        <div class="metric-row"><span class="metric-label">Q0&#8211;Q2 failures (May)</span><span class="metric-val red">48 / 89</span></div>
+        <div class="metric-row"><span class="metric-label">Per-question tracking</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem">Q2 = single biggest failure point. Investigate question difficulty, clarity, or UX friction.</div>
+      </div>
+    </div>
+    <div class="two-col" style="margin-bottom:1.25rem">
+      <div class="metric-section">
+        <h4>Average Score &amp; Completion Rate <span class="pending">Jul</span></h4>
+        <div class="metric-row"><span class="metric-label">Avg score of passers</span><span class="metric-val green">&#8805;90%</span></div>
+        <div class="metric-row"><span class="metric-label">Avg score of non-passers</span><span class="metric-val red">&#8212;</span></div>
+        <div class="metric-row"><span class="metric-label">Completion rate (May)</span><span class="metric-val yellow">19.8%</span></div>
+        <div class="metric-row"><span class="metric-label">Completion rate (Jul)</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+      </div>
+      <div class="metric-section">
+        <h4>Unique Caller Cohort</h4>
+        <div class="metric-row"><span class="metric-label">Unique callers (May)</span><span class="metric-val blue">30</span></div>
+        <div class="metric-row"><span class="metric-label">Unique passers (May)</span><span class="metric-val green">13</span></div>
+        <div class="metric-row"><span class="metric-label">Unique caller pass rate</span><span class="metric-val yellow">43.3%</span></div>
+        <div class="metric-row"><span class="metric-label">Anisha Degrave (watch)</span><span class="metric-val red">3.3%</span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.4rem">43.3% of unique callers passed at least once &#8212; healthier than raw call rate (19.8%) suggests.</div>
+      </div>
+    </div>
+
       <!-- Pass by Day -->
       <div class="section">
         <h3>Pass Rate by Day</h3>
@@ -135,7 +198,7 @@
 
       <!-- Dropout Analysis -->
       <div class="section">
-        <h3>Dropout Analysis â 89 Failing Calls</h3>
+        <h3>Dropout Analysis Ã¢ÂÂ 89 Failing Calls</h3>
         <div style="padding:.5rem 0">
           <div class="dropout-bar-row">
             <span class="dropout-bar-label">Q0 (never started)</span>
@@ -150,7 +213,7 @@
             <span class="dropout-bar-pct">15.7%</span>
           </div>
           <div class="dropout-bar-row" style="font-weight:600">
-            <span class="dropout-bar-label" style="color:var(--red)">After Q2 â ï¸</span>
+            <span class="dropout-bar-label" style="color:var(--red)">After Q2 Ã¢ÂÂ Ã¯Â¸Â</span>
             <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:59.6%;background:var(--red)"></div></div>
             <span class="dropout-bar-count red">53</span>
             <span class="dropout-bar-pct red">59.6%</span>
@@ -162,7 +225,7 @@
             <span class="dropout-bar-pct">10.1%</span>
           </div>
           <div class="dropout-bar-row">
-            <span class="dropout-bar-label">After Q4âQ9</span>
+            <span class="dropout-bar-label">After Q4Ã¢ÂÂQ9</span>
             <div class="bar-wrap" style="flex:1"><div class="bar-fill" style="width:12.4%;background:var(--muted)"></div></div>
             <span class="dropout-bar-count">11</span>
             <span class="dropout-bar-pct">12.4%</span>
@@ -174,7 +237,7 @@
             <span class="dropout-bar-pct">1.1%</span>
           </div>
         </div>
-        <p class="note">â ï¸ Q2 is the critical drop point â 53 of 89 failures (60%) quit here.</p>
+        <p class="note">Ã¢ÂÂ Ã¯Â¸Â Q2 is the critical drop point Ã¢ÂÂ 53 of 89 failures (60%) quit here.</p>
       </div>
     </div>
 
@@ -186,22 +249,22 @@
           <tr><th>Caller</th><th>Passed</th><th>Attempts</th><th>Rate</th><th>Pass Rate Bar</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Leah Hopping</a><span class="coming-soon-tag">soon</span></td><td class="green">3</td><td>4</td><td>75.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:75%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Robin A. Cunningham</a><span class="coming-soon-tag">soon</span></td><td class="green">2</td><td>3</td><td>66.7%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:66.7%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Mitchell Davis</a><span class="coming-soon-tag">soon</span></td><td class="green">4</td><td>9</td><td>44.4%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:44.4%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Dylene Lowe</a><span class="coming-soon-tag">soon</span></td><td class="yellow">2</td><td>4</td><td>50.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:50%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">(917) 832-3356</a><span class="coming-soon-tag">soon</span></td><td class="yellow">2</td><td>5</td><td>40.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:40%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Edward Ebony</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>3</td><td>33.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:33.3%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">Low</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Nick Ludovico</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>4</td><td>25.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:25%;background:var(--orange)"></div></div></td><td><span class="badge badge-orange">Low</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Alban Bucci</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>8</td><td>12.5%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.5%;background:var(--red)"></div></div></td><td><span class="badge badge-red">At Risk</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Avery Miller</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>6</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Saya Taylor</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Jean Marc Simeon</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
-          <tr><td><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Tracy Nayman</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
-          <tr class="highlight-row"><td><strong><a href="#" class="magnemite-link" title="Magnemite — coming soon" onclick="return false;">Anisha Degrave</a><span class="coming-soon-tag">soon</span></strong></td><td class="red">1</td><td><strong style="color:var(--red)">30</strong></td><td>3.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.3%;background:var(--red)"></div></div></td><td><span class="badge badge-red">â ï¸ Urgent</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Leah Hopping</a><span class="coming-soon-tag">soon</span></td><td class="green">3</td><td>4</td><td>75.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:75%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Robin A. Cunningham</a><span class="coming-soon-tag">soon</span></td><td class="green">2</td><td>3</td><td>66.7%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:66.7%;background:var(--green)"></div></div></td><td><span class="badge badge-green">Strong</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Mitchell Davis</a><span class="coming-soon-tag">soon</span></td><td class="green">4</td><td>9</td><td>44.4%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:44.4%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Dylene Lowe</a><span class="coming-soon-tag">soon</span></td><td class="yellow">2</td><td>4</td><td>50.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:50%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">(917) 832-3356</a><span class="coming-soon-tag">soon</span></td><td class="yellow">2</td><td>5</td><td>40.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:40%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">OK</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Edward Ebony</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>3</td><td>33.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:33.3%;background:var(--yellow)"></div></div></td><td><span class="badge badge-yellow">Low</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Nick Ludovico</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>4</td><td>25.0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:25%;background:var(--orange)"></div></div></td><td><span class="badge badge-orange">Low</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Alban Bucci</a><span class="coming-soon-tag">soon</span></td><td>1</td><td>8</td><td>12.5%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.5%;background:var(--red)"></div></div></td><td><span class="badge badge-red">At Risk</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Avery Miller</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>6</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Saya Taylor</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Jean Marc Simeon</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr><td><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Tracy Nayman</a><span class="coming-soon-tag">soon</span></td><td class="red">0</td><td>3</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Needs Help</span></td></tr>
+          <tr class="highlight-row"><td><strong><a href="#" class="magnemite-link" title="Magnemite â coming soon" onclick="return false;">Anisha Degrave</a><span class="coming-soon-tag">soon</span></strong></td><td class="red">1</td><td><strong style="color:var(--red)">30</strong></td><td>3.3%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.3%;background:var(--red)"></div></div></td><td><span class="badge badge-red">Ã¢ÂÂ Ã¯Â¸Â Urgent</span></td></tr>
         </tbody>
       </table>
-      <p class="note">â ï¸ Anisha Degrave: 30 attempts, 1 pass (3.3%) â coaching or direct outreach recommended.</p>
+      <p class="note">Ã¢ÂÂ Ã¯Â¸Â Anisha Degrave: 30 attempts, 1 pass (3.3%) Ã¢ÂÂ coaching or direct outreach recommended.</p>
     </div>
 
     <!-- Passing Calls Log -->
@@ -210,11 +273,11 @@
       <table>
         <thead><tr><th>#</th><th>Date</th><th>#</th><th>Date</th><th>#</th><th>Date</th><th>#</th><th>Date</th></tr></thead>
         <tbody>
-          <tr><td>1</td><td>May 2</td><td>7</td><td>May 4</td><td>13â14</td><td>May 4</td><td>19</td><td>May 7</td></tr>
-          <tr><td>2</td><td>May 2</td><td>8â10</td><td>May 4</td><td>15</td><td>May 5</td><td>20</td><td>May 8</td></tr>
-          <tr><td>3</td><td>May 2</td><td>11â12</td><td>May 4</td><td>16</td><td>May 6</td><td>21</td><td>May 8</td></tr>
-          <tr><td>4</td><td>May 3</td><td>&nbsp;</td><td>&nbsp;</td><td>17â18</td><td>May 6</td><td>22</td><td>May 8</td></tr>
-          <tr><td>5â6</td><td>May 4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+          <tr><td>1</td><td>May 2</td><td>7</td><td>May 4</td><td>13Ã¢ÂÂ14</td><td>May 4</td><td>19</td><td>May 7</td></tr>
+          <tr><td>2</td><td>May 2</td><td>8Ã¢ÂÂ10</td><td>May 4</td><td>15</td><td>May 5</td><td>20</td><td>May 8</td></tr>
+          <tr><td>3</td><td>May 2</td><td>11Ã¢ÂÂ12</td><td>May 4</td><td>16</td><td>May 6</td><td>21</td><td>May 8</td></tr>
+          <tr><td>4</td><td>May 3</td><td>&nbsp;</td><td>&nbsp;</td><td>17Ã¢ÂÂ18</td><td>May 6</td><td>22</td><td>May 8</td></tr>
+          <tr><td>5Ã¢ÂÂ6</td><td>May 4</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
         </tbody>
       </table>
     </div>
@@ -225,9 +288,9 @@
   <!-- ======= WALTER ======= -->
   <div class="pathway-block">
     <div class="pathway-header">
-      <span class="pathway-icon">ð¨</span>
-      <span class="pathway-title">Walter â Male Healthcare Customer</span>
-      <span class="pathway-subtitle">All-Time Â· Production</span>
+      <span class="pathway-icon">Ã°ÂÂÂ¨</span>
+      <span class="pathway-title">Walter Ã¢ÂÂ Male Healthcare Customer</span>
+      <span class="pathway-subtitle">All-Time ÃÂ· Production</span>
     </div>
 
     <div class="stats-grid">
@@ -235,7 +298,39 @@
       <div class="stat-card"><div class="label">Successful Enrollment</div><div class="value green">1</div><div class="sub">3.2% of calls</div></div>
       <div class="stat-card"><div class="label">Transferred to Agent</div><div class="value yellow">26</div><div class="sub">83.9% of calls</div></div>
       <div class="stat-card"><div class="label">Frustrated Termination</div><div class="value red">4</div><div class="sub">12.9% of calls</div></div>
-      <div class="stat-card"><div class="label">May 2026 Calls</div><div class="value blue">1</div><div class="sub">May 8 â transferred to agent</div></div>
+      <div class="stat-card"><div class="label">May 2026 Calls</div><div class="value blue">1</div><div class="sub">May 8 Ã¢ÂÂ transferred to agent</div></div>
+    </div>
+
+    
+    <!-- NEW METRICS: Walter July 2026 -->
+    <div class="three-col" style="margin-bottom:1.25rem">
+      <div class="metric-section">
+        <h4>Compliance Adherence Rate <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">SOA captured, required disclosures given, no prohibited statements. The one Jake/Tracy care about &#8212; maps to live call risk.</div>
+        <div class="metric-row"><span class="metric-label">SOA captured correctly</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Required disclosures given</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Zero prohibited statements</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Overall compliance rate</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem">Target: 100% SOA + disclosures. Prohibited statement = automatic fail.</div>
+      </div>
+      <div class="metric-section">
+        <h4>Pass Rate vs Rubric <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Structured rubric score across compliance, accuracy, and fluency dimensions.</div>
+        <div class="metric-row"><span class="metric-label">All-time enrollment rate</span><span class="metric-val red">3.2%</span></div>
+        <div class="metric-row"><span class="metric-label">Rubric pass rate</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Compliance dimension</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Accuracy dimension</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem">83.9% transferred to agent &#8212; evaluate if self-service enrollment is the right success metric.</div>
+      </div>
+      <div class="metric-section">
+        <h4>Plan-Info Accuracy &amp; Fluency <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Citation correctness + time-to-complete as fluency proxy. Falling time = agents getting smoother.</div>
+        <div class="metric-row"><span class="metric-label">Plan-info accuracy rate</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Citation correctness</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Avg time-to-complete (Jul)</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">May 2026 avg duration</span><span class="metric-val blue">~9m</span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem">Track monthly. Fluency improvement shows as falling call time with stable/rising accuracy.</div>
+      </div>
     </div>
 
     <div class="two-col">
@@ -244,9 +339,9 @@
         <table>
           <thead><tr><th>Outcome</th><th>Count</th><th>Rate</th><th>Bar</th></tr></thead>
           <tbody>
-            <tr><td><span class="badge badge-green">â Enrollment</span></td><td class="green">1</td><td>3.2%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.2%;background:var(--green)"></div></div></td></tr>
-            <tr><td><span class="badge badge-yellow">â¡ï¸ Agent Transfer</span></td><td class="yellow">26</td><td>83.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:83.9%;background:var(--yellow)"></div></div></td></tr>
-            <tr><td><span class="badge badge-red">ð¤ Frustrated Exit</span></td><td class="red">4</td><td>12.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.9%;background:var(--red)"></div></div></td></tr>
+            <tr><td><span class="badge badge-green">Ã¢ÂÂ Enrollment</span></td><td class="green">1</td><td>3.2%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:3.2%;background:var(--green)"></div></div></td></tr>
+            <tr><td><span class="badge badge-yellow">Ã¢ÂÂ¡Ã¯Â¸Â Agent Transfer</span></td><td class="yellow">26</td><td>83.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:83.9%;background:var(--yellow)"></div></div></td></tr>
+            <tr><td><span class="badge badge-red">Ã°ÂÂÂ¤ Frustrated Exit</span></td><td class="red">4</td><td>12.9%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:12.9%;background:var(--red)"></div></div></td></tr>
           </tbody>
         </table>
       </div>
@@ -255,8 +350,8 @@
         <table>
           <thead><tr><th>Date</th><th>Event</th></tr></thead>
           <tbody>
-            <tr><td style="white-space:nowrap">Jan 5, 2026</td><td>â Only successful self-service enrollment â Medicare Advantage / UnitedHealthcare plan</td></tr>
-            <tr><td style="white-space:nowrap">May 8, 2026</td><td>May's most recent call â transferred to agent</td></tr>
+            <tr><td style="white-space:nowrap">Jan 5, 2026</td><td>Ã¢ÂÂ Only successful self-service enrollment Ã¢ÂÂ Medicare Advantage / UnitedHealthcare plan</td></tr>
+            <tr><td style="white-space:nowrap">May 8, 2026</td><td>May's most recent call Ã¢ÂÂ transferred to agent</td></tr>
           </tbody>
         </table>
         <p class="note">Walter is primarily routing callers to live agents rather than completing self-service enrollments.</p>
@@ -269,16 +364,50 @@
   <!-- ======= WILLOW ======= -->
   <div class="pathway-block">
     <div class="pathway-header">
-      <span class="pathway-icon">ð©</span>
-      <span class="pathway-title">Willow â Female Healthcare Customer</span>
-      <span class="pathway-subtitle">All-Time Â· Production</span>
+      <span class="pathway-icon">Ã°ÂÂÂ©</span>
+      <span class="pathway-title">Willow Ã¢ÂÂ Female Healthcare Customer</span>
+      <span class="pathway-subtitle">All-Time ÃÂ· Production</span>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card"><div class="label">Total Calls</div><div class="value blue">11</div><div class="sub">All-Time Production</div></div>
       <div class="stat-card"><div class="label">Successful Enrollment</div><div class="value red">0</div><div class="sub">0% of calls</div></div>
       <div class="stat-card"><div class="label">Transferred to Agent</div><div class="value yellow">11</div><div class="sub">100% of calls</div></div>
-      <div class="stat-card"><div class="label">May 2026 Calls</div><div class="value blue">1</div><div class="sub">May 8 â transferred to agent</div></div>
+      <div class="stat-card"><div class="label">May 2026 Calls</div><div class="value blue">1</div><div class="sub">May 8 Ã¢ÂÂ transferred to agent</div></div>
+    </div>
+
+    
+    <!-- NEW METRICS: Willow July 2026 -->
+    <div class="three-col" style="margin-bottom:1.25rem">
+      <div class="metric-section">
+        <h4>Compliance + DSNP-Specific <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Core compliance PLUS: LIS/Medicaid coordination handled correctly, dual-eligible disclosures, correct plan-type guidance.</div>
+        <div class="metric-row"><span class="metric-label">SOA captured correctly</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">LIS coordination correct</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Dual-eligible disclosures</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Correct plan-type guidance</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Overall DSNP compliance</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+      </div>
+      <div class="metric-section">
+        <h4>Pass Rate &amp; Fluency <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Core four mirrored from Walter for direct comparison. Willow is harder by design.</div>
+        <div class="metric-row"><span class="metric-label">All-time enrollment rate</span><span class="metric-val red">0%</span></div>
+        <div class="metric-row"><span class="metric-label">Rubric pass rate</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Plan-info accuracy</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Avg time-to-complete</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.5rem">100% transferred to agent &#8212; gap vs Walter tells you where dual-eligible knowledge breaks down.</div>
+      </div>
+      <div class="metric-section">
+        <h4>Walter &#8596; Willow Pass Gap <span class="pending">Jul</span></h4>
+        <div style="font-size:.75rem;color:var(--muted);margin-bottom:.7rem">Willow is harder. A lower pass rate is expected. The SIZE of the gap tells you where dual-eligible knowledge breaks down.</div>
+        <div class="gap-card">
+          <div class="gap-val">&#8212; pp</div>
+          <div class="gap-sub">Walter pass rate minus Willow pass rate</div>
+        </div>
+        <div class="metric-row"><span class="metric-label">Walter enrollment (all-time)</span><span class="metric-val yellow">3.2%</span></div>
+        <div class="metric-row"><span class="metric-label">Willow enrollment (all-time)</span><span class="metric-val red">0%</span></div>
+        <div style="font-size:.7rem;color:var(--muted);margin-top:.4rem">Threshold: &gt;20pp gap = investigate DSNP module depth in training.</div>
+      </div>
     </div>
 
     <div class="two-col">
@@ -287,8 +416,8 @@
         <table>
           <thead><tr><th>Outcome</th><th>Count</th><th>Rate</th><th>Bar</th></tr></thead>
           <tbody>
-            <tr><td><span class="badge badge-green">â Enrollment</span></td><td class="red">0</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--green)"></div></div></td></tr>
-            <tr><td><span class="badge badge-yellow">â¡ï¸ Agent Transfer</span></td><td class="yellow">11</td><td>100%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--yellow)"></div></div></td></tr>
+            <tr><td><span class="badge badge-green">Ã¢ÂÂ Enrollment</span></td><td class="red">0</td><td>0%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:0%;background:var(--green)"></div></div></td></tr>
+            <tr><td><span class="badge badge-yellow">Ã¢ÂÂ¡Ã¯Â¸Â Agent Transfer</span></td><td class="yellow">11</td><td>100%</td><td><div class="bar-wrap"><div class="bar-fill" style="width:100%;background:var(--yellow)"></div></div></td></tr>
           </tbody>
         </table>
       </div>
@@ -296,29 +425,67 @@
         <h3>Assessment</h3>
         <p style="font-size:.875rem;line-height:1.6;color:var(--text)">
           All 11 production calls across all time have transferred to a live agent. 
-          Willow is functioning purely as a <strong>triage / routing bot</strong> â no self-service enrollments have been completed yet.
+          Willow is functioning purely as a <strong>triage / routing bot</strong> Ã¢ÂÂ no self-service enrollments have been completed yet.
         </p>
-        <p class="note" style="margin-top:.75rem">May 8, 2026 â Only May call, transferred to agent.</p>
+        <p class="note" style="margin-top:.75rem">May 8, 2026 Ã¢ÂÂ Only May call, transferred to agent.</p>
       </div>
     </div>
   </div>
 
   <hr class="divider" />
 
+  
+  <!-- ======= CROSS-BOT / PROGRAM LEVEL ======= -->
+  <div class="crossbot">
+    <h2>&#128202; Cross-Bot / Program Level &#8212; July 2026</h2>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="label">Pathway Completion Rate</div><div class="value purple">&#8212; <span class="pending">Jul</span></div><div class="sub">Quill &#8594; Walter &#8594; Willow</div></div>
+      <div class="stat-card"><div class="label">Cohort Completion Rate</div><div class="value blue">&#8212; <span class="pending">Jul</span></div><div class="sub">% agents completing all 3</div></div>
+      <div class="stat-card"><div class="label">Avg Days to Certification</div><div class="value orange">&#8212; <span class="pending">Jul</span></div><div class="sub">Quill pass &#8594; Willow pass</div></div>
+      <div class="stat-card"><div class="label">Transfer Correlation</div><div class="value green">&#8212; <span class="pending">Jul</span></div><div class="sub">Sim score vs live QA/compliance</div></div>
+    </div>
+    <div class="two-col">
+      <div class="section">
+        <h3>Pathway Progression &amp; Time-to-Certification</h3>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">Tracks agents moving Quill &#8594; Walter &#8594; Willow. Time-to-certification is a cohort-level health signal.</p>
+        <div class="pipeline-bar"><span class="p-step">Quill</span><span style="font-size:.8rem">Medicare knowledge baseline established (&#8805;90%)</span></div>
+        <div class="pipeline-bar"><span class="p-step">Walter</span><span style="font-size:.8rem">Standard enrollment sim &#8212; compliance + rubric</span></div>
+        <div class="pipeline-bar"><span class="p-step">Willow</span><span style="font-size:.8rem">DSNP/dual-eligible &#8212; hardest stage</span></div>
+        <div class="pipeline-bar"><span class="p-step">Cert</span><span style="font-size:.8rem">Live-call ready &#8212; Magnemite correlation tracked</span></div>
+        <div style="margin-top:1rem">
+          <div class="metric-row"><span class="metric-label">Agents started Quill (Jul)</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+          <div class="metric-row"><span class="metric-label">Advanced to Walter</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+          <div class="metric-row"><span class="metric-label">Advanced to Willow</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+          <div class="metric-row"><span class="metric-label">Completed all 3</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        </div>
+      </div>
+      <div class="section">
+        <h3>Transfer Correlation (Sim &#8594; Live)</h3>
+        <p style="font-size:.8rem;color:var(--muted);margin-bottom:.75rem">This is the KPI that proves the training actually works and justifies the investment. Without it, everything above is activity, not outcome.</p>
+        <div class="metric-row"><span class="metric-label">Agents with Magnemite data</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Sim pass &#8594; live QA &#8805;90%</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Sim pass &#8594; live compliance %</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="metric-row"><span class="metric-label">Sim fail &#8594; live QA gap</span><span class="metric-val"><span class="pending">Jul</span></span></div>
+        <div class="correlation-note">Target: correlation r &gt;0.65 between final sim rubric score and first 30-day live compliance score. If the sim is predictive, training ROI is defensible.</div>
+        <div style="margin-top:.75rem;font-size:.8rem;color:var(--muted)"><strong>Data source:</strong> Magnemite after-call QA reports. Wire in once July cohort completes Willow.</div>
+      </div>
+    </div>
+  </div>
+
   <!-- ======= KEY FLAGS ======= -->
   <div class="flag-box">
-    <h3>â ï¸ Key Flags &amp; Action Items</h3>
-    <div class="flag-item"><span class="flag-dot">â¸</span><span><strong>Q2 Dropout (Quill):</strong> 53 of 89 failing callers (59.6%) quit after the 2nd question â this is the single biggest failure point. Investigate Q2 difficulty, clarity, or UX friction immediately.</span></div>
-    <div class="flag-item"><span class="flag-dot">â¸</span><span><strong>Anisha Degrave (Quill):</strong> 30 attempts with only 1 pass (3.3%) in May. Recommend direct coaching outreach or a structured review session.</span></div>
-    <div class="flag-item"><span class="flag-dot">â¸</span><span><strong>Walter Self-Service Gap:</strong> Only 1 enrollment ever (3.2%) â the pathway is functionally a live-agent transfer bot. Evaluate if self-service is the right goal or formalize triage role.</span></div>
-    <div class="flag-item"><span class="flag-dot">â¸</span><span><strong>Willow Self-Service Gap:</strong> Zero enrollments across 11 all-time calls (100% agent transfer). Pathway needs self-service capability development or explicit repositioning as triage.</span></div>
-    <div class="flag-item"><span class="flag-dot">â¸</span><span><strong>Low May Volume (Walter &amp; Willow):</strong> 1 call each in May 2026 â insufficient to draw May-specific conclusions. Monitor for volume pickup in June.</span></div>
+    <h3>Ã¢ÂÂ Ã¯Â¸Â Key Flags &amp; Action Items</h3>
+    <div class="flag-item"><span class="flag-dot">Ã¢ÂÂ¸</span><span><strong>Q2 Dropout (Quill):</strong> 53 of 89 failing callers (59.6%) quit after the 2nd question Ã¢ÂÂ this is the single biggest failure point. Investigate Q2 difficulty, clarity, or UX friction immediately.</span></div>
+    <div class="flag-item"><span class="flag-dot">Ã¢ÂÂ¸</span><span><strong>Anisha Degrave (Quill):</strong> 30 attempts with only 1 pass (3.3%) in May. Recommend direct coaching outreach or a structured review session.</span></div>
+    <div class="flag-item"><span class="flag-dot">Ã¢ÂÂ¸</span><span><strong>Walter Self-Service Gap:</strong> Only 1 enrollment ever (3.2%) Ã¢ÂÂ the pathway is functionally a live-agent transfer bot. Evaluate if self-service is the right goal or formalize triage role.</span></div>
+    <div class="flag-item"><span class="flag-dot">Ã¢ÂÂ¸</span><span><strong>Willow Self-Service Gap:</strong> Zero enrollments across 11 all-time calls (100% agent transfer). Pathway needs self-service capability development or explicit repositioning as triage.</span></div>
+    <div class="flag-item"><span class="flag-dot">Ã¢ÂÂ¸</span><span><strong>Low May Volume (Walter &amp; Willow):</strong> 1 call each in May 2026 Ã¢ÂÂ insufficient to draw May-specific conclusions. Monitor for volume pickup in June.</span></div>
   </div>
 
 </div>
 
 <footer>
-  QWW-OPS Dashboard &mdash; May 2026 Data &mdash;
+  QWW-OPS Dashboard &mdash; July 2026 Data &mdash;
   <a href="https://github.com/kanisha423-coder/qww-ops">View Source</a>
 </footer>
 
